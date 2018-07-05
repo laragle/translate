@@ -1,11 +1,11 @@
 <?php
 
-namespace DarwinLuague\Translator\Http\Controllers;
+namespace Laragle\Translate\Http\Controllers;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('translator::master');
+        return view('translate::master');
     }
 }

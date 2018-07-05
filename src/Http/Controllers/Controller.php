@@ -1,9 +1,9 @@
 <?php
 
-namespace DarwinLuague\Translator\Http\Controllers;
+namespace Laragle\Translate\Http\Controllers;
 
-use DarwinLuague\Translator\Http\Middleware\Authenticate;
 use Illuminate\Routing\Controller as BaseController;
+use Laragle\Translate\Http\Middleware\Authenticate;
 
 class Controller extends BaseController
 {

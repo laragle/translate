@@ -1,6 +1,6 @@
 <?php
 
-namespace DarwinLuague\Translator\Http\Middleware;
+namespace Laragle\Translate\Http\Middleware;
 
 class Authenticate
 {

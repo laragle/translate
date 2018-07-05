@@ -1,11 +1,11 @@
 <?php
 
-namespace DarwinLuague\Translator;
+namespace Laragle\Translate;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class TranslatorServiceProvider extends ServiceProvider
+class TranslateServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -15,7 +15,7 @@ class TranslatorServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/dluaguetranslator.php' => config_path('dluaguetranslator.php')
+            __DIR__.'/../config/translate.php' => config_path('translate.php')
         ], 'config');
 
         $this->registerRoutes();
@@ -31,9 +31,9 @@ class TranslatorServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group([
-            'prefix' => config('dluaguetranslator.uri', 'translator'),
-            'namespace' => 'DarwinLuague\Translator\Http\Controllers',
-            'middleware' => config('dluaguetranslator.middleware', 'web'),
+            'prefix' => config('translate.uri', 'translate'),
+            'namespace' => 'Laragle\Translate\Http\Controllers',
+            'middleware' => config('translate.middleware', 'web'),
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
@@ -46,7 +46,7 @@ class TranslatorServiceProvider extends ServiceProvider
      */
     protected function registerViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'translator');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'translate');
     }
 
     /**
@@ -57,7 +57,7 @@ class TranslatorServiceProvider extends ServiceProvider
     public function defineAssetPublishing()
     {
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/dluaguetranslator'),
+            __DIR__.'/../public' => public_path('vendor/translate'),
         ], 'assets');
     }
 
@@ -79,7 +79,7 @@ class TranslatorServiceProvider extends ServiceProvider
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/dluaguetranslator.php', 'dluaguetranslator'
+            __DIR__.'/../config/translate.php', 'translate'
         );
     }
 }

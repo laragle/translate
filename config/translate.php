@@ -12,6 +12,6 @@ return [
     | Default: translator (string)
     |
     */
-    'uri' => 'translator',
+    'uri' => 'translate',
 
 ];

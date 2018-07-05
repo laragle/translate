@@ -1,5 +1,5 @@
 {
-    "name": "darwinluague/translator",
+    "name": "laragle/translate",
     "description": "Laravel's localization management package.",
     "keywords": [
         "laravel",
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "DarwinLuague\\Translator\\": "src/"
+            "Laragle\\Translate\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DarwinLuague\\Translator\\Tests\\": "tests/"
+            "Laragle\\Translate\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -37,10 +37,10 @@
         },
         "laravel": {
             "providers": [
-                "DarwinLuague\\Translator\\TranslatorServiceProvider"
+                "Laragle\\Translate\\TranslateServiceProvider"
             ],
             "aliases": {
-                "Translator": "DarwinLuague\\Translator\\Translator"
+                "Translate": "Laragle\\Translate\\Translate"
             }
         }
     },
