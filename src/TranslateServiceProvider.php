@@ -15,7 +15,7 @@ class TranslateServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/translate.php' => config_path('translate.php')
+            __DIR__.'/../config/translate.php' => config_path('laragle/translate.php')
         ], 'config');
 
         $this->registerRoutes();
@@ -31,7 +31,7 @@ class TranslateServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group([
-            'prefix' => config('translate.uri', 'translate'),
+            'prefix' => config('laragle.translate.uri', 'translate'),
             'namespace' => 'Laragle\Translate\Http\Controllers',
             'middleware' => config('translate.middleware', 'web'),
         ], function () {
@@ -57,7 +57,7 @@ class TranslateServiceProvider extends ServiceProvider
     public function defineAssetPublishing()
     {
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/translate'),
+            __DIR__.'/../public' => public_path('vendor/laragle/translate'),
         ], 'assets');
     }
 
@@ -79,7 +79,7 @@ class TranslateServiceProvider extends ServiceProvider
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/translate.php', 'translate'
+            __DIR__.'/../config/translate.php', 'laragle.translate'
         );
     }
 }
