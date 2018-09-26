@@ -4,6 +4,8 @@ namespace Laragle\Translate;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laragle\Translate\ExportCommand;
+use Laragle\Translate\ImportCommand;
 
 class TranslateServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,22 @@ class TranslateServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerViews();
         $this->defineAssetPublishing();
+        $this->registerCommands();
+    }
+
+    /**
+     * Register package commands.
+     * 
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ExportCommand::class,
+                ImportCommand::class
+            ]);
+        }
     }
 
     /**

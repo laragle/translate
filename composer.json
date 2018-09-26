@@ -9,44 +9,53 @@
     "type": "project",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Darwin Luague",
-            "email": "darwinluague9001@gmail.com"
-        }
-    ],
-    "require": {
+    {
+        "name": "Darwin Luague",
+        "email": "darwinluague9001@gmail.com"
+    }],
+    "require":
+    {
         "php": ">=7.1.0",
-        "illuminate/support": "^5.6"
+        "laravel/framework": "^5.7"
     },
-    "autoload": {
-        "psr-4": {
+    "autoload":
+    {
+        "psr-4":
+        {
             "Laragle\\Translate\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
+    "autoload-dev":
+    {
+        "psr-4":
+        {
             "Laragle\\Translate\\Tests\\": "tests/"
         }
     },
-    "extra": {
-        "branch-alias": {
+    "extra":
+    {
+        "branch-alias":
+        {
             "dev-master": "1.0-dev"
         },
-        "laravel": {
+        "laravel":
+        {
             "providers": [
                 "Laragle\\Translate\\TranslateServiceProvider"
             ],
-            "aliases": {
+            "aliases":
+            {
                 "Translate": "Laragle\\Translate\\Translate"
             }
         }
     },
-    "config": {
+    "config":
+    {
         "sort-packages": true
     },
     "prefer-stable": true,
     "minimum-stability": "dev",
-    "require-dev": {
-        "orchestra/testbench": "~3.6"
+    "require-dev":
+    {
     }
 }
