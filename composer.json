@@ -16,6 +16,7 @@
     "require":
     {
         "php": ">=7.1.0",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^5.7"
     },
     "autoload":

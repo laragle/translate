@@ -2,6 +2,8 @@
 
 namespace Laragle\Translate;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
@@ -14,7 +16,7 @@ class ImportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'lanslate:import';
+    protected $signature = 'laragle:import-translations';
 
     /**
      * The console command description.
@@ -53,6 +55,7 @@ class ImportCommand extends Command
 
         foreach ($this->files->directories($this->app['path.lang']) as $langPath) {
             $locale = basename($langPath);
+            $data[$locale] = [];
             foreach ($this->files->allfiles($langPath) as $file) {
                 $info = pathinfo($file);
                 $group = $info['filename'];
@@ -63,10 +66,9 @@ class ImportCommand extends Command
                 $translations = Lang::getLoader()->load($locale, $group);
                 if ($translations && is_array($translations)) {
                     foreach (array_dot($translations) as $key => $value) {
-                        array_push($data, [
+                        array_push($data[$locale], [
                             'key' => $key,
                             'value' => $value,
-                            'locale' => $locale,
                             'group' => $group
                         ]);                        
                     }
@@ -74,7 +76,32 @@ class ImportCommand extends Command
             }
         }
 
-        dd($data);
-        //return $counter;
+        $client = new Client([
+            'base_uri' => config('laragle.translate.api_url')
+        ]);
+
+        $response = $client->post('oauth/token', [
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+                'client_id' => config('laragle.translate.app_id'),
+                'client_secret' => config('laragle.translate.app_secret'),
+                'scope' => 'import-translations'
+            ]
+        ]);
+
+        $access_token = json_decode((string) $response->getBody(), true)['access_token'];
+
+        $client->post('client/'.config('laragle.translate.app_id').'/language/translations/import', [
+            'form_params' => [
+                'default_language_code' => config('app.locale'),
+                'translations' => $data
+            ],
+            'headers' => [
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer '.$access_token
+            ]
+        ]);
+
+        $this->info('Import success.');
     }
 }

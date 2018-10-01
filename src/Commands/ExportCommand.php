@@ -11,7 +11,7 @@ class ExportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'lanslate:export';
+    protected $signature = 'laragle:export-translations';
 
     /**
      * The console command description.
