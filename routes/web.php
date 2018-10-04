@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/', 'DashboardController@index');
+Route::get('token', 'AuthController@token');

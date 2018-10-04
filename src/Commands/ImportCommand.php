@@ -80,27 +80,42 @@ class ImportCommand extends Command
             'base_uri' => config('laragle.translate.api_url')
         ]);
 
-        $response = $client->post('oauth/token', [
-            'form_params' => [
-                'grant_type' => 'client_credentials',
-                'client_id' => config('laragle.translate.app_id'),
-                'client_secret' => config('laragle.translate.app_secret'),
-                'scope' => 'import-translations'
-            ]
-        ]);
+        try {
+            $response = $client->post('oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'client_credentials',
+                    'client_id' => config('laragle.translate.app_id'),
+                    'client_secret' => config('laragle.translate.app_secret'),
+                    'scope' => 'import-translations'
+                ]
+            ]);
+        } catch (RequestException $e) {
+            $message = json_decode($e->getResponse()->getBody()->getContents(), true)['message'];
+            $this->error($message);
+            $this->error('Kindly check the following environment variables in your .env file.');
+            $this->error('LARAGLE_TRANSLATE_APP_ID');
+            $this->error('LARAGLE_TRANSLATE_APP_SECRET');
+            return;
+        }
 
         $access_token = json_decode((string) $response->getBody(), true)['access_token'];
 
-        $client->post('client/'.config('laragle.translate.app_id').'/language/translations/import', [
-            'form_params' => [
-                'default_language_code' => config('app.locale'),
-                'translations' => $data
-            ],
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer '.$access_token
-            ]
-        ]);
+        try {
+            $client->post('client/'.config('laragle.translate.app_id').'/language/translations/import', [
+                'form_params' => [
+                    'default_language_code' => config('app.locale'),
+                    'translations' => $data
+                ],
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer '.$access_token
+                ]
+            ]);
+        } catch (RequestException $e) {
+            $message = json_decode($e->getResponse()->getBody()->getContents(), true)['message'];
+            $this->error($message);
+            return;
+        }
 
         $this->info('Import success.');
     }

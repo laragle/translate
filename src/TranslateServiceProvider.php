@@ -49,9 +49,9 @@ class TranslateServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group([
-            'prefix' => config('laragle.translate.uri', 'translate'),
+            'prefix' => config('laragle.translate.uri', 'laragle/translate'),
             'namespace' => 'Laragle\Translate\Http\Controllers',
-            'middleware' => config('translate.middleware', 'web'),
+            'middleware' => 'web'
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
