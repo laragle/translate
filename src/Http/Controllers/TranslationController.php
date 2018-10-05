@@ -24,7 +24,7 @@ class TranslationController extends Controller
                     'grant_type' => 'client_credentials',
                     'client_id' => config('laragle.translate.app_id'),
                     'client_secret' => config('laragle.translate.app_secret'),
-                    'scope' => 'import-translations'
+                    'scope' => 'push-translations'
                 ]
             ]);
         } catch (RequestException $e) {
@@ -54,6 +54,6 @@ class TranslationController extends Controller
 
     public function delete()
     {
-        Artisan::call('laragle:export-translations');
+        Artisan::call('laragle:pull-translations');
     }
 }

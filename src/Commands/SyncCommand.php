@@ -38,7 +38,9 @@ class SyncCommand extends Command
      */
     public function handle()
     {
-        Artisan::call('laragle:import-translations');
-        Artisan::call('laragle:export-translations');  
+        Artisan::call('laragle:push-translations');
+        Artisan::call('laragle:pull-translations');
+
+        $this->info('Success!');
     }
 }

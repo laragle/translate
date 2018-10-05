@@ -4,8 +4,8 @@ namespace Laragle\Translate;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laragle\Translate\Commands\ExportCommand;
-use Laragle\Translate\Commands\ImportCommand;
+use Laragle\Translate\Commands\PullCommand;
+use Laragle\Translate\Commands\PushCommand;
 use Laragle\Translate\Commands\SyncCommand;
 
 class TranslateServiceProvider extends ServiceProvider
@@ -22,8 +22,6 @@ class TranslateServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->registerRoutes();
-        $this->registerViews();
-        $this->defineAssetPublishing();
         $this->registerCommands();
     }
 
@@ -35,8 +33,8 @@ class TranslateServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         $this->commands([
-            ExportCommand::class,
-            ImportCommand::class,
+            PullCommand::class,
+            PushCommand::class,
             SyncCommand::class
         ]);
     }
@@ -55,28 +53,6 @@ class TranslateServiceProvider extends ServiceProvider
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
-    }
-
-    /**
-     * Register package views.
-     *
-     * @return void
-     */
-    protected function registerViews()
-    {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'translate');
-    }
-
-    /**
-     * Define the asset publishing configuration.
-     *
-     * @return void
-     */
-    public function defineAssetPublishing()
-    {
-        $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/laragle/translate'),
-        ], 'assets');
     }
 
     /**

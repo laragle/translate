@@ -9,21 +9,21 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Lang;
 
-class ImportCommand extends Command
+class PushCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'laragle:import-translations';
+    protected $signature = 'laragle:push-translations';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import localizations to https://translate.laragle.com';
+    protected $description = 'Push translations to https://translate.laragle.com';
 
     /** @var \Illuminate\Foundation\Application  */
     protected $app;
@@ -86,7 +86,7 @@ class ImportCommand extends Command
                     'grant_type' => 'client_credentials',
                     'client_id' => config('laragle.translate.app_id'),
                     'client_secret' => config('laragle.translate.app_secret'),
-                    'scope' => 'import-translations'
+                    'scope' => 'push-translations'
                 ]
             ]);
         } catch (RequestException $e) {
@@ -112,7 +112,7 @@ class ImportCommand extends Command
                 ]
             ]);
             
-            $this->info('Import success.');
+            $this->info('Success!');
         } catch (RequestException $e) {
             $message = json_decode($e->getResponse()->getBody()->getContents(), true)['message'];
             $this->error($message);            

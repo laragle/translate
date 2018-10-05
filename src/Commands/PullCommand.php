@@ -6,21 +6,21 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class ExportCommand extends Command
+class PullCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'laragle:export-translations';
+    protected $signature = 'laragle:pull-translations';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Export localizations from https://translate.laragle.com';
+    protected $description = 'Pull translations from https://translate.laragle.com';
 
     protected $files;
 
@@ -53,7 +53,7 @@ class ExportCommand extends Command
                     'grant_type' => 'client_credentials',
                     'client_id' => config('laragle.translate.app_id'),
                     'client_secret' => config('laragle.translate.app_secret'),
-                    'scope' => 'import-translations'
+                    'scope' => 'push-translations'
                 ]
             ]);
         } catch (RequestException $e) {
@@ -102,7 +102,7 @@ class ExportCommand extends Command
                 });                
             });
 
-            $this->info('Export success.');
+            $this->info('Success!');
         } catch (RequestException $e) {
             $message = json_decode($e->getResponse()->getBody()->getContents(), true)['message'];
             $this->error($message);
