@@ -1,6 +1,6 @@
 <?php
 
-namespace Laragle\Translate;
+namespace Laragle\Translate\Commands;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -23,7 +23,7 @@ class ImportCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Import localizations to translate.laragle.com';
+    protected $description = 'Import localizations to https://translate.laragle.com';
 
     /** @var \Illuminate\Foundation\Application  */
     protected $app;
@@ -111,12 +111,11 @@ class ImportCommand extends Command
                     'Authorization' => 'Bearer '.$access_token
                 ]
             ]);
+            
+            $this->info('Import success.');
         } catch (RequestException $e) {
             $message = json_decode($e->getResponse()->getBody()->getContents(), true)['message'];
-            $this->error($message);
-            return;
-        }
-
-        $this->info('Import success.');
+            $this->error($message);            
+        }        
     }
 }

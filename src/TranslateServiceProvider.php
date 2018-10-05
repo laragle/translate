@@ -4,8 +4,9 @@ namespace Laragle\Translate;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laragle\Translate\ExportCommand;
-use Laragle\Translate\ImportCommand;
+use Laragle\Translate\Commands\ExportCommand;
+use Laragle\Translate\Commands\ImportCommand;
+use Laragle\Translate\Commands\SyncCommand;
 
 class TranslateServiceProvider extends ServiceProvider
 {
@@ -33,12 +34,11 @@ class TranslateServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                ExportCommand::class,
-                ImportCommand::class
-            ]);
-        }
+        $this->commands([
+            ExportCommand::class,
+            ImportCommand::class,
+            SyncCommand::class
+        ]);
     }
 
     /**
