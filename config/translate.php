@@ -2,7 +2,7 @@
 
 return [
     /* API Base URL */
-    'api_url' => 'http://api.lanslate.local',
+    'api_url' => env('LARAGLE_TRANSLATE_API_URL'),
 
     /* Project ID */
     'app_id' => env('LARAGLE_TRANSLATE_APP_ID'),
