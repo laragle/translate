@@ -12,6 +12,7 @@ The package will automatically register itself.
 Next, add the following environment variables into your `.env` file.
 
 ```env
+LARAGLE_TRANSLATE_API_URL=https://api.translate.laragle.com
 LARAGLE_TRANSLATE_APP_ID=YOUR_PROJECT_APP_ID
 LARAGLE_TRANSLATE_APP_SECRET=YOUR_PROJECT_APP_SECRET
 ```
