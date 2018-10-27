@@ -37,6 +37,10 @@ class TranslationController extends Controller
 
     public function update(Request $request, Filesystem $file)
     {
+        if (config('app.env') === 'production') {
+            return;
+        }
+
         $translations = Lang::getLoader()->load($request->locale, $request->group);
         
         array_set($translations, $request->key, $request->value);
