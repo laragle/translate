@@ -66,11 +66,13 @@ class PushCommand extends Command
                 $translations = Lang::getLoader()->load($locale, $group);
                 if ($translations && is_array($translations)) {
                     foreach (array_dot($translations) as $key => $value) {
-                        array_push($data[$locale], [
-                            'key' => $key,
-                            'value' => $value,
-                            'group' => $group
-                        ]);                        
+                        if (! is_array($value)) {
+                            array_push($data[$locale], [
+                                'key' => $key,
+                                'value' => $value,
+                                'group' => $group
+                            ]);
+                        }                        
                     }
                 }
             }
