@@ -1,3 +1,9 @@
+<p align="center">
+<a href="https://packagist.org/packages/laragle/translate"><img src="https://poser.pugx.org/laragle/translate/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laragle/translate"><img src="https://poser.pugx.org/laragle/translate/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laragle/translate"><img src="https://poser.pugx.org/laragle/translate/license.svg" alt="License"></a>
+</p>
+
 ## Laragle Translate
 Laragle Translate is a Laravel localization management system that will update your localization files in real-time.
 
