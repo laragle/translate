@@ -84,12 +84,28 @@ class PullCommand extends Command
                     });
 
                     if ($filtered->count()) {
-                        $translations = $filtered->map(function ($item) {
-                            $temp = [];
-                            array_set($temp, $item['key'], $item['value']);
-                            return $temp;
-                        })->collapse()->all();
-                        
+                        $translations = [];
+                        $filtered->each(function ($item) use (&$translations) {
+                            $keys = explode('.', $item['key']);
+                            $is_valid_key = true;
+
+                            collect($keys)->each(function ($key) use (&$is_valid_key){
+                                if ($key == '*' || is_numeric($key)) {
+                                    $is_valid_key = false;
+                                }
+                            });
+
+                            if ($is_valid_key) {
+                                array_set($translations, $item['key'], $item['value']);
+                            } else {
+                                $child_key = collect($keys)->filter(function ($item, $key) {
+                                    return $key > 0;
+                                })->implode('.');
+
+                                $translations[$keys[0]][$child_key] = $item['value'];
+                            }
+                        });
+
                         $path = resource_path('lang') . '/' . $locale;
 
                         if (! $this->files->exists($path)) {
