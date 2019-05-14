@@ -43,7 +43,24 @@ class TranslationController extends Controller
 
         $translations = Lang::getLoader()->load($request->locale, $request->group);
         
-        array_set($translations, $request->key, $request->value);
+        $keys = explode('.', $request->key);
+        $is_valid_key = true;
+
+        collect($keys)->each(function ($key) use (&$is_valid_key){
+            if ($key == '*' || is_numeric($key)) {
+                $is_valid_key = false;
+            }
+        });
+
+        if ($is_valid_key) {
+            array_set($translations, $request->key, $request->value);
+        } else {
+            $child_key = collect($keys)->filter(function ($item, $key) {
+                return $key > 0;
+            })->implode('.');
+
+            $translations[$keys[0]][$child_key] = $request->value;
+        }
 
         $path = resource_path('lang') . '/' . $request->locale;
 
