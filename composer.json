@@ -17,7 +17,7 @@
     {
         "php": ">=7.1.0",
         "guzzlehttp/guzzle": "^6.3",
-        "laravel/framework": "^5.7"
+        "laravel/framework": "^7.30"
     },
     "autoload":
     {
